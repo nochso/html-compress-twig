@@ -1,0 +1,23 @@
+{
+    "name": "nochso/html-compress-twig",
+    "description": "Twig extension for compressing HTML and inline CSS/Javascript",
+    "keywords": ["html", "compress", "twig", "extension", "minify", "javascript", "css"],
+    "type": "library",
+    "license": "ISC",
+    "authors": [
+        {
+            "name": "Marcel Voigt",
+            "email": "mv@noch.so"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "nochso\\HtmlCompressTwig\\": "src/",
+            "nochso\\HtmlCompressTwig\\Test\\": "test/"
+        }
+    },
+    "require": {
+        "wyrihaximus/html-compress": "^1.1",
+        "twig/twig": "^1.0"
+    }
+}
