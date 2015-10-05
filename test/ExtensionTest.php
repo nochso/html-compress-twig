@@ -6,31 +6,51 @@ use nochso\HtmlCompressTwig\Extension;
 
 class ExtensionTest extends \PHPUnit_Framework_TestCase
 {
-    public function testTag()
+    /**
+     * @dataProvider htmlProvider
+     *
+     * @param string $input
+     * @param string $expected
+     */
+    public function testExtension($input, $expected)
     {
-        $templates = array('test' => '{% htmlcompress %}<html> <p> x  x </p> </html>{% endhtmlcompress %}');
-        $loader = new \Twig_Loader_Array($templates);
+        $loader = new \Twig_Loader_Array(array('test' => $input));
         $twig = new \Twig_Environment($loader);
         $twig->addExtension(new Extension());
-        $this->assertEquals('<html><p> x x </p></html>' , $twig->render('test'));
+        $this->assertEquals($expected, $twig->render('test'));
     }
 
-    public function testFunction()
+    public function htmlProvider()
     {
-        $templates = array('test' => "{{ htmlcompress('<html> <p> x  x </p> </html>') }}");
-        $loader = new \Twig_Loader_Array($templates);
-        $twig = new \Twig_Environment($loader);
-        $twig->addExtension(new Extension());
-        $this->assertEquals('<html><p> x x </p></html>' , $twig->render('test'));
+        return array(
+            'Twig tag' => array(
+                '{% htmlcompress %}<html> <p> x  x </p> </html>{% endhtmlcompress %}',
+                '<html><p> x x </p></html>',
+            ),
+            'Twig function' => array(
+                "{{ htmlcompress('<html> <p> x  x </p> </html>') }}",
+                '<html><p> x x </p></html>',
+            ),
+            'Twig filter' => array(
+                "{{ '<html> <p> x  x </p> </html>'|htmlcompress }}",
+                '<html><p> x x </p></html>',
+            ),
+        );
     }
 
-    public function testFilter()
+    public function testNoCompressionWhenDebug()
     {
-        $templates = array('test' => "{{ '<html> <p> x  x </p> </html>'|htmlcompress }}");
-        $loader = new \Twig_Loader_Array($templates);
-        $twig = new \Twig_Environment($loader);
+        $loader = new \Twig_Loader_Array(array('test' => "{{ '<ul> <ol>'|htmlcompress }}"));
+        $twig = new \Twig_Environment($loader, array('debug' => true));
         $twig->addExtension(new Extension());
-        $this->assertEquals('<html><p> x x </p></html>' , $twig->render('test'));
+        $this->assertEquals('<ul> <ol>', $twig->render('test'));
     }
 
+    public function testForceCompressionWhenDebug()
+    {
+        $loader = new \Twig_Loader_Array(array('test' => "{{ '<ul> <ol>'|htmlcompress }}"));
+        $twig = new \Twig_Environment($loader, array('debug' => true));
+        $twig->addExtension(new Extension(true));
+        $this->assertEquals('<ul><ol>', $twig->render('test'));
+    }
 }

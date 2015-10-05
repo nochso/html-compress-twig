@@ -30,9 +30,9 @@ class Extension extends \Twig_Extension
      */
     private $parser;
     /**
-     * @var bool
+     * @var \Twig_Environment
      */
-    private $debug;
+    private $twig;
     /**
      * @var bool
      */
@@ -40,7 +40,6 @@ class Extension extends \Twig_Extension
 
     /**
      * @param bool $forceCompression Default: false. Forces compression regardless of Twig's debug setting.
-     *
      */
     public function __construct($forceCompression = false)
     {
@@ -52,12 +51,12 @@ class Extension extends \Twig_Extension
     public function initRuntime(Twig_Environment $environment)
     {
         parent::initRuntime($environment);
-        $this->debug = $environment->isDebug();
+        $this->twig = $environment;
     }
 
     public function compress($html)
     {
-        if (!$this->debug || $this->forceCompression) {
+        if (!$this->twig->isDebug() || $this->forceCompression) {
             return $this->parser->compress($html);
         }
         return $html;
