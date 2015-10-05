@@ -20,5 +20,8 @@
         "wyrihaximus/html-compress": "^1.1",
         "twig/twig": "^1.0",
         "phpunit/phpunit": "^4.8|^5.0"
+    },
+    "suggests": {
+        "fabpot/php-cs-fixer": "Fix coding standards in PHP code"
     }
 }

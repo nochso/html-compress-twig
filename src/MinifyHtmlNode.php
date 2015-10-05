@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of nochso/html-compress-twig.
+ *
+ * @copyright Copyright (c) 2015 Marcel Voigt <mv@noch.so>
+ * @license   https://github.com/nochso/html-compress-twig/blob/master/LICENSE ISC
+ * @link      https://github.com/nochso/html-compress-twig
+ */
+
 namespace nochso\HtmlCompressTwig;
 
 use Twig_Node;
