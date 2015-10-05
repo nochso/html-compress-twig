@@ -18,7 +18,9 @@
     },
     "require": {
         "wyrihaximus/html-compress": "^1.1",
-        "twig/twig": "^1.0",
+        "twig/twig": "^1.0"
+    },
+    "require-dev": {
         "phpunit/phpunit": "^4.8|^5.0"
     },
     "suggests": {
