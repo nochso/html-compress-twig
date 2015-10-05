@@ -44,6 +44,17 @@ Then use it in your templates:
 {% endhtmlcompress %}
 ```
 
+**Compression is disabled by Twig's `debug` setting.** This is to make development easier, however you can always
+override it.
+
+The constructor of this extension takes a boolean parameter `$forceCompression`. When true, this will force compression
+ regardless of Twig's `debug` setting. It defaults to false when omitted.
+
+```php
+// Enable compression regardless of Twig's debug setting
+$twig->addExtension(new \nochso\HtmlCompressTwig\Extension(true));
+```
+
 ## History
 
 ### 0.1.0 - 2015-10-??
