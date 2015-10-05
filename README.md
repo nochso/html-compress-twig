@@ -3,14 +3,18 @@
 [![Latest Stable Version](https://poser.pugx.org/nochso/html-compress-twig/v/stable)](https://packagist.org/packages/nochso/html-compress-twig)
 [![License](https://poser.pugx.org/nochso/html-compress-twig/license)](LICENSE)
 
-A Twig extension for [WyriHaximus/HtmlCompress](https://github.com/WyriHaximus/HtmlCompress).
+A [Twig](http://twig.sensiolabs.org/) extension for [WyriHaximus/HtmlCompress](https://github.com/WyriHaximus/HtmlCompress).
 
-Currently supported twig features are:
+Currently supported Twig features are:
 
-* Tags
+* Tag
     * `{% htmlcompress %} ... {% endhtmlcompress %}`
+* Function
+    * `{{ htmlcompress('some html') }}`
+* Filter
+    * `{{ content|markdown|htmlcompress }}`
 
-The HTML, inline CSS and Javascript will be compressed.
+Any HTML, inline CSS and Javascript will be compressed.
 
 * [Installation](#installation)
 * [Usage](#usage)
@@ -38,10 +42,9 @@ $twig->addExtension(new \nochso\HtmlCompressTwig\Extension());
 Then use it in your templates:
 
 ```
-// layout.twig
-{% htmlcompress %}
-...
-{% endhtmlcompress %}
+{% htmlcompress %}{% endhtmlcompress %}
+{{ htmlcompress('<ul> <li>') }}
+{{ '<ul> <li>'|htmlcompress }}
 ```
 
 **Compression is disabled by Twig's `debug` setting.** This is to make development easier, however you can always
@@ -57,7 +60,7 @@ $twig->addExtension(new \nochso\HtmlCompressTwig\Extension(true));
 
 ## History
 
-### 0.1.0 - 2015-10-??
+### 0.1.0 - 2015-10-05
 First public release.
 
 ## License
