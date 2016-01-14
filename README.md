@@ -2,6 +2,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/nochso/html-compress-twig/v/stable)](https://packagist.org/packages/nochso/html-compress-twig)
 [![License](https://poser.pugx.org/nochso/html-compress-twig/license)](LICENSE)
+[![Build Status](https://travis-ci.org/nochso/html-compress-twig.svg?branch=master)](https://travis-ci.org/nochso/html-compress-twig)
 
 A [Twig](http://twig.sensiolabs.org/) extension for [WyriHaximus/HtmlCompress](https://github.com/WyriHaximus/HtmlCompress).
 
