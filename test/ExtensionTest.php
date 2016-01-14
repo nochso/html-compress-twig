@@ -17,12 +17,14 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider htmlProvider
      *
+     * @param $method
      * @param string $input
      * @param string $expected
      */
-    public function testExtension($input, $expected)
+    public function testExtensionMethod($method, $input, $expected)
     {
-        $loader = new \Twig_Loader_Array(array('test' => $input));
+        $template = str_replace('%s', $input, $method);
+        $loader = new \Twig_Loader_Array(array('test' => $template));
         $twig = new \Twig_Environment($loader);
         $twig->addExtension(new Extension());
         $this->assertEquals($expected, $twig->render('test'));
@@ -32,33 +34,46 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             'Twig tag' => array(
-                '{% htmlcompress %}<html> <p> x  x </p> </html>{% endhtmlcompress %}',
+                '{% htmlcompress %}%s{% endhtmlcompress %}',
+                '<html> <p> x  x </p> </html>',
                 '<html><p> x x </p></html>',
             ),
             'Twig function' => array(
-                "{{ htmlcompress('<html> <p> x  x </p> </html>') }}",
+                "{{ htmlcompress('%s') }}",
+                '<html> <p> x  x </p> </html>',
                 '<html><p> x x </p></html>',
             ),
             'Twig filter' => array(
-                "{{ '<html> <p> x  x </p> </html>'|htmlcompress }}",
+                "{{ '%s'|htmlcompress }}",
+                '<html> <p> x  x </p> </html>',
                 '<html><p> x x </p></html>',
             ),
         );
     }
 
-    public function testNoCompressionWhenDebug()
+    /**
+     * @dataProvider htmlProvider
+     */
+    public function testNoCompressionWhenDebug($method, $input, $expected)
     {
-        $loader = new \Twig_Loader_Array(array('test' => "{{ '<ul> <ol>'|htmlcompress }}"));
+        $template = str_replace('%s', $input, $method);
+        $loader = new \Twig_Loader_Array(array('test' => $template));
         $twig = new \Twig_Environment($loader, array('debug' => true));
         $twig->addExtension(new Extension());
-        $this->assertEquals('<ul> <ol>', $twig->render('test'));
+        // Assert that input equals output
+        $this->assertEquals($input, $twig->render('test'));
     }
 
-    public function testForceCompressionWhenDebug()
+    /**
+     * @dataProvider htmlProvider
+     */
+    public function testForceCompressionWhenDebug($method, $input, $expected)
     {
-        $loader = new \Twig_Loader_Array(array('test' => "{{ '<ul> <ol>'|htmlcompress }}"));
+        $template = str_replace('%s', $input, $method);
+        $loader = new \Twig_Loader_Array(array('test' => $template));
         $twig = new \Twig_Environment($loader, array('debug' => true));
         $twig->addExtension(new Extension(true));
-        $this->assertEquals('<ul><ol>', $twig->render('test'));
+        // Assert that compression took place
+        $this->assertEquals($expected, $twig->render('test'));
     }
 }
