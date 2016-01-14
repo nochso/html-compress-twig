@@ -25,6 +25,7 @@ class MinifyHtmlNode extends Twig_Node
             ->addDebugInfo($this)
             ->write("ob_start();\n")
             ->subcompile($this->getNode('body'))
-            ->write("echo \WyriHaximus\HtmlCompress\Factory::constructSmallest()->compress(ob_get_clean());\n");
+            ->write('$extension = $this->env->getExtension(\'' . Extension::NAME . '\');' . "\n")
+            ->write('echo $extension->compress($this->env, ob_get_clean());' . "\n");
     }
 }
