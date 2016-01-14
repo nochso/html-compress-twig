@@ -21,6 +21,8 @@ use WyriHaximus\HtmlCompress\Factory;
  */
 class Extension extends \Twig_Extension
 {
+    const NAME = 'HtmlCompressTwig';
+
     /**
      * @var array
      */
@@ -66,7 +68,7 @@ class Extension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'HtmlCompressTwig';
+        return self::NAME;
     }
 
     public function getTokenParsers()
