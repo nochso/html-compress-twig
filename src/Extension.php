@@ -24,8 +24,9 @@ class Extension extends \Twig_Extension
     /**
      * @var array
      */
-    private $safeOptions = array(
+    private $options = array(
         'is_safe' => array('html'),
+        'needs_environment' => true,
     );
     /**
      * @var callable
@@ -35,10 +36,6 @@ class Extension extends \Twig_Extension
      * @var \WyriHaximus\HtmlCompress\Parser
      */
     private $parser;
-    /**
-     * @var \Twig_Environment
-     */
-    private $twig;
     /**
      * @var bool
      */
@@ -54,15 +51,9 @@ class Extension extends \Twig_Extension
         $this->callable = array($this, 'compress');
     }
 
-    public function initRuntime(Twig_Environment $environment)
+    public function compress(Twig_Environment $twig, $html)
     {
-        parent::initRuntime($environment);
-        $this->twig = $environment;
-    }
-
-    public function compress($html)
-    {
-        if (!$this->twig->isDebug() || $this->forceCompression) {
+        if (!$twig->isDebug() || $this->forceCompression) {
             return $this->parser->compress($html);
         }
         return $html;
@@ -88,14 +79,14 @@ class Extension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('htmlcompress', $this->callable, $this->safeOptions),
+            new \Twig_SimpleFunction('htmlcompress', $this->callable, $this->options),
         );
     }
 
     public function getFilters()
     {
         return array(
-            new \Twig_SimpleFilter('htmlcompress', $this->callable, $this->safeOptions),
+            new \Twig_SimpleFilter('htmlcompress', $this->callable, $this->options),
         );
     }
 }

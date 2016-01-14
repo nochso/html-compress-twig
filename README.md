@@ -63,6 +63,7 @@ $twig->addExtension(new \nochso\HtmlCompressTwig\Extension(true));
 ### [1.0.0] - 2016-01-14
 #### Changed
 - Move phpunit from require to require-dev.
+- Use *needs_environment* option instead of deprecated `Twig_Extension->initRuntime()` to access `Twig_Environment`.
 
 ### 0.1.0 - 2015-10-05
 First public release.
