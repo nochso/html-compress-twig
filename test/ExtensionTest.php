@@ -16,64 +16,60 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider htmlProvider
-     *
-     * @param $method
-     * @param string $input
-     * @param string $expected
      */
-    public function testExtensionMethod($method, $input, $expected)
+    public function testExtensionMethod($template, $original, $compressed)
     {
-        $template = str_replace('%s', $input, $method);
         $loader = new \Twig_Loader_Array(array('test' => $template));
         $twig = new \Twig_Environment($loader);
         $twig->addExtension(new Extension());
-        $this->assertEquals($expected, $twig->render('test'));
+        $this->assertEquals($compressed, $twig->render('test'));
     }
 
     public function htmlProvider()
     {
-        return array(
-            'Twig tag' => array(
-                '{% htmlcompress %}%s{% endhtmlcompress %}',
-                '<html> <p> x  x </p> </html>',
-                '<html><p> x x </p></html>',
-            ),
-            'Twig function' => array(
-                "{{ htmlcompress('%s') }}",
-                '<html> <p> x  x </p> </html>',
-                '<html><p> x x </p></html>',
-            ),
-            'Twig filter' => array(
-                "{{ '%s'|htmlcompress }}",
-                '<html> <p> x  x </p> </html>',
-                '<html><p> x x </p></html>',
-            ),
-        );
+        $original = '<html> <p> x  x </p> </html>';
+        $compressed = '<html><p> x x </p></html>';
+
+        $testData = [];
+        $testMethods = [
+            'Twig tag' => '{% htmlcompress %}%s{% endhtmlcompress %}',
+            'Twig function' => "{{ htmlcompress('%s') }}",
+            'Twig filter' => "{{ '%s'|htmlcompress }}",
+        ];
+
+        foreach ($testMethods as $testMethod => $testTemplate) {
+            $testData[$testMethod] = [
+                str_replace('%s', $original, $testTemplate),
+                $original,
+                $compressed,
+            ];
+        }
+        return $testData;
     }
 
     /**
      * @dataProvider htmlProvider
      */
-    public function testNoCompressionWhenDebug($method, $input, $expected)
+    public function testNoCompressionWhenDebug($template, $original, $compressed)
     {
-        $template = str_replace('%s', $input, $method);
         $loader = new \Twig_Loader_Array(array('test' => $template));
         $twig = new \Twig_Environment($loader, array('debug' => true));
         $twig->addExtension(new Extension());
-        // Assert that input equals output
-        $this->assertEquals($input, $twig->render('test'));
+
+        // Assert no compression took place
+        $this->assertEquals($original, $twig->render('test'));
     }
 
     /**
      * @dataProvider htmlProvider
      */
-    public function testForceCompressionWhenDebug($method, $input, $expected)
+    public function testForceCompressionWhenDebug($template, $original, $compressed)
     {
-        $template = str_replace('%s', $input, $method);
         $loader = new \Twig_Loader_Array(array('test' => $template));
         $twig = new \Twig_Environment($loader, array('debug' => true));
         $twig->addExtension(new Extension(true));
+
         // Assert that compression took place
-        $this->assertEquals($expected, $twig->render('test'));
+        $this->assertEquals($compressed, $twig->render('test'));
     }
 }
