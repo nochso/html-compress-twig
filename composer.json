@@ -12,7 +12,11 @@
     ],
     "autoload": {
         "psr-4": {
-            "nochso\\HtmlCompressTwig\\": "src/",
+            "nochso\\HtmlCompressTwig\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
             "nochso\\HtmlCompressTwig\\Test\\": "test/"
         }
     },
