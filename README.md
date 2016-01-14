@@ -60,8 +60,14 @@ $twig->addExtension(new \nochso\HtmlCompressTwig\Extension(true));
 
 ## History
 
+### [1.0.0] - 2016-01-14
+#### Changed
+- Move phpunit from require to require-dev.
+
 ### 0.1.0 - 2015-10-05
 First public release.
+
+[1.0.0]: https://github.com/nochso/html-compress-twig/compare/0.1...1.0.0
 
 ## License
 This project is licensed under the ISC license which is MIT/GPL compatible and FSF/OSI approved:
