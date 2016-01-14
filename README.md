@@ -62,6 +62,9 @@ $twig->addExtension(new \nochso\HtmlCompressTwig\Extension(true));
 ## History
 
 ### [1.0.0] - 2016-01-14
+#### Added
+- Add Travis integration for automated tests
+
 #### Changed
 - Move phpunit from require to require-dev.
 - Use *needs_environment* option instead of deprecated `Twig_Extension->initRuntime()` to access `Twig_Environment`.
