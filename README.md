@@ -60,22 +60,7 @@ $twig->addExtension(new \nochso\HtmlCompressTwig\Extension(true));
 ```
 
 ## History
-
-### [1.0.0] - 2016-01-14
-#### Added
-- Add Travis integration for automated tests
-
-#### Changed
-- Move phpunit from require to require-dev.
-- Use *needs_environment* option instead of deprecated `Twig_Extension->initRuntime()` to access `Twig_Environment`.
-
-#### Fixed
-- Fix tag not using the extension and its configuration.
-
-### 0.1.0 - 2015-10-05
-First public release.
-
-[1.0.0]: https://github.com/nochso/html-compress-twig/compare/0.1...1.0.0
+See [CHANGELOG](CHANGELOG.md) for the full history of changes.
 
 ## License
 This project is licensed under the ISC license which is MIT/GPL compatible and FSF/OSI approved:
