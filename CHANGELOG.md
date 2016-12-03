@@ -2,10 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.0.2] - 2016-10-22
-### Deprecated
-- `Extension::NAME` and `Extension::getName()` as they will be no longer need by Twig eventually.  
-  Use of `getName` was replaced by `::class`
+## [2.0.0] - 2016-12-03
+### Changed
+- Bumped minimum requirement for Twig from `1.12` to `1.26`
+
+### Removed
+- `Extension::NAME` and `Extension::getName()` as they are no longer required by the minimum required Twig version.
 
 ## [1.0.1] - 2016-01-27
 ### Changed
@@ -25,6 +27,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 0.1.0 - 2015-10-05
 First public release.
 
-[1.0.2]: https://github.com/nochso/html-compress-twig/compare/1.0.1...1.0.2
+[2.0.0]: https://github.com/nochso/html-compress-twig/compare/1.0.1...2.0.0
 [1.0.1]: https://github.com/nochso/html-compress-twig/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/nochso/html-compress-twig/compare/0.1...1.0.0

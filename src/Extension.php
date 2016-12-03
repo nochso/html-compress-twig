@@ -22,11 +22,6 @@ use WyriHaximus\HtmlCompress\Factory;
 class Extension extends \Twig_Extension
 {
     /**
-     * @deprecated since 1.0.1 (to be removed in 2.0 when updating to Twig 2.0)
-     */
-    const NAME = 'HtmlCompressTwig';
-
-    /**
      * @var array
      */
     private $options = array(
@@ -62,17 +57,6 @@ class Extension extends \Twig_Extension
             return $this->parser->compress($html);
         }
         return $html;
-    }
-
-    /**
-     * Returns the name of the extension.
-     *
-     * @return string The extension name
-     * @deprecated since 1.0.1 (to be removed in 2.0 when updating to Twig 2.0)
-     */
-    public function getName()
-    {
-        return self::NAME;
     }
 
     public function getTokenParsers()
