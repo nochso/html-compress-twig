@@ -5,7 +5,7 @@ php:
   - 7.0
   - hhvm
 install:
-  - composer install --no-interaction --prefer-source -o
+  - composer install --no-interaction --prefer-dist -o
 matrix:
   include:
     - php: 5.6
@@ -17,6 +17,6 @@ matrix:
     - php: 7
       env: dependencies=highest
 before_script:
-  - if [ -z "$dependencies" ]; then composer install; fi;
-  - if [ "$dependencies" = "lowest" ]; then composer update --prefer-lowest -n; fi;
-  - if [ "$dependencies" = "highest" ]; then composer update -n; fi;
+  - if [ -z "$dependencies" ]; then composer install --prefer-dist; fi;
+  - if [ "$dependencies" = "lowest" ]; then composer update --prefer-dist --prefer-lowest -n; fi;
+  - if [ "$dependencies" = "highest" ]; then composer update --prefer-dist -n; fi;
