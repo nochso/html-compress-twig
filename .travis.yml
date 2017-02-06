@@ -4,6 +4,8 @@ php:
   - 5.6
   - 7.0
   - hhvm
+before_install:
+  - phpenv config-rm xdebug.ini
 install:
   - composer install --no-interaction --prefer-dist -o
 matrix:
