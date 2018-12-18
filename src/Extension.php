@@ -43,11 +43,26 @@ class Extension extends \Twig_Extension
 
     /**
      * @param bool $forceCompression Default: false. Forces compression regardless of Twig's debug setting.
+     * @param string $mode Compression mode defaults to smallest
      */
-    public function __construct($forceCompression = false)
+    public function __construct($forceCompression = false, $mode = 'smallest')
     {
         $this->forceCompression = $forceCompression;
-        $this->parser = Factory::constructSmallest();
+
+        switch ($mode) {
+        case 'smallest':
+            $this->parser = Factory::constructSmallest();
+            break;
+
+        case 'fastest':
+            $this->parser = Factory::constructFastest();
+            break;
+
+        case 'standard':
+        default:
+            $this->parser = Factory::construct();
+        }
+
         $this->callable = array($this, 'compress');
     }
 
