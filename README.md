@@ -36,7 +36,7 @@ Any HTML, inline CSS and Javascript will be compressed.
 First register the extension with Twig:
 
 ```php
-$twig = new Twig_Environment($loader);
+$twig = new \Twig\Environment($loader);
 $twig->addExtension(new \nochso\HtmlCompressTwig\Extension());
 ```
 

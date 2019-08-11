@@ -11,16 +11,19 @@
 namespace nochso\HtmlCompressTwig\test;
 
 use nochso\HtmlCompressTwig\Extension;
+use Twig\Loader\ArrayLoader;
+use Twig\Environment;
+use PHPUnit\Framework\TestCase;
 
-class ExtensionTest extends \PHPUnit_Framework_TestCase
+class ExtensionTest extends TestCase
 {
     /**
      * @dataProvider htmlProvider
      */
     public function testExtensionMethod($template, $original, $compressed)
     {
-        $loader = new \Twig_Loader_Array(array('test' => $template));
-        $twig = new \Twig_Environment($loader);
+        $loader = new ArrayLoader(array('test' => $template));
+        $twig = new Environment($loader);
         $twig->addExtension(new Extension());
         $this->assertEquals($compressed, $twig->render('test'));
     }
@@ -52,8 +55,8 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testNoCompressionWhenDebug($template, $original, $compressed)
     {
-        $loader = new \Twig_Loader_Array(array('test' => $template));
-        $twig = new \Twig_Environment($loader, array('debug' => true));
+        $loader = new ArrayLoader(array('test' => $template));
+        $twig = new Environment($loader, array('debug' => true));
         $twig->addExtension(new Extension());
 
         // Assert no compression took place
@@ -65,8 +68,8 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testForceCompressionWhenDebug($template, $original, $compressed)
     {
-        $loader = new \Twig_Loader_Array(array('test' => $template));
-        $twig = new \Twig_Environment($loader, array('debug' => true));
+        $loader = new ArrayLoader(array('test' => $template));
+        $twig = new Environment($loader, array('debug' => true));
         $twig->addExtension(new Extension(true));
 
         // Assert that compression took place

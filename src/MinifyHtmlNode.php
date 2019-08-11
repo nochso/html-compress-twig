@@ -10,16 +10,17 @@
 
 namespace nochso\HtmlCompressTwig;
 
-use Twig_Node;
+use Twig\Node\Node;
+use Twig\Compiler;
 
-class MinifyHtmlNode extends Twig_Node
+class MinifyHtmlNode extends Node
 {
     public function __construct(array $nodes = array(), array $attributes = array(), $lineno = 0, $tag = null)
     {
         parent::__construct($nodes, $attributes, $lineno, $tag);
     }
 
-    public function compile(\Twig_Compiler $compiler)
+    public function compile(Compiler $compiler)
     {
         $compiler
             ->addDebugInfo($this)
