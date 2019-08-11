@@ -13,9 +13,8 @@ namespace nochso\HtmlCompressTwig\test;
 use nochso\HtmlCompressTwig\Extension;
 use Twig\Loader\ArrayLoader;
 use Twig\Environment;
-use PHPUnit\Framework\TestCase;
 
-class ExtensionTest extends TestCase
+class ExtensionTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider htmlProvider
