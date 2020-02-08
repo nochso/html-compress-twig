@@ -28,7 +28,7 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
     public function htmlProvider()
     {
         $original = '<html> <p> x  x </p> </html>';
-        $compressed = '<html><p> x x </p></html>';
+        $compressed = '<html><p> x x';
 
         $testData = [];
         $testMethods = [
