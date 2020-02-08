@@ -21,7 +21,7 @@
         }
     },
     "require": {
-        "wyrihaximus/html-compress": "^1.1",
+        "wyrihaximus/html-compress": "^3.0 || ^2.0 | ^1.1",
         "twig/twig": "^1.26 || ^2.0"
     },
     "require-dev": {
